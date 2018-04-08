@@ -196,6 +196,32 @@ void Database::LoadData(const std::string &data_folder_path,
 
 void Database::BuildMemberGraph() {
   // Fill in your code here
+  for (int i=0; i<members.size()-1; i++){
+    for (int j=0; j<members.size(); j++){
+      Member *m1 = members[i];
+      Member *m2 = members[j];
+      int x,y = 0;
+      while (m1->groups[x] != m2->groups[y]){
+        if (x > m1->groups.size()) continue;
+        else if (y > m2->groups.size()){
+          x++;
+          y=0;
+        }else{
+          y++;
+        }
+      }
+      if (x < m1->groups.size()){
+        MemberConnection conn1;
+        MemberConnection conn2;
+        conn1.group = m1->groups[x];
+        conn2.group = m1->groups[x];
+        conn1.dst = m2;
+        conn2.dst = m1;
+        m1->connecting_members[m2->member_id] = conn1;
+        m2->connecting_members[m1->member_id] = conn2;
+      }
+    }
+  }
 }
 
 double Database::BestGroupsToJoin(Member *root) {

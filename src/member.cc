@@ -18,10 +18,31 @@ void Member::DumpConnections() {
 
 void Member::PathToMemberBFS(uint64_t dst_member_id) {
   // Fill in your code here.
+  key=0;
+  std::queue<Member *> path;
+  path->push_back(database->members[member_id]);
+  color = COLOR_GRAY;
+  while (path != NULL){
+    Member v = path->pop_front;   //pointer on v or no?
+    if (v->member_id == dst_member_id){
+      v->color = COLOR_BLACK;
+    }
+    for (auto *it = v->connecting_members->begin(); it != v->connecting_members->end(); it++){
+      if (it->dst->color == COLOR_WHITE){
+        it->dst->color = COLOR_GRAY;
+        path->push(it);
+        key += 1;
+      }
+    }
+  }
 }
 
 void Member::PathToMemberIDDFS(uint64_t dst_member_id) {
   // Fill in your code here
+  int depth = 
+  for (int i=0; i<depth; i++){
+    DLS(database->members[member_id], uint64_t, depth);
+  }
 }
   
 void Member::PrintPath(Member* dst) {
