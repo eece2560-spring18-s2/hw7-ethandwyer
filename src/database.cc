@@ -196,13 +196,15 @@ void Database::LoadData(const std::string &data_folder_path,
 
 void Database::BuildMemberGraph() {
   // Fill in your code here
-  for (int i=0; i<members.size()-1; i++){
-    for (int j=0; j<members.size(); j++){
+  for (uint64_t i=0; i<members.size()-1; i++){
+    for (uint64_t j=i+1; j<members.size(); j++){
       Member *m1 = members[i];
       Member *m2 = members[j];
-      int x,y = 0;
+      uint64_t x,y = 0;
       while (m1->groups[x] != m2->groups[y]){
-        if (x > m1->groups.size()) continue;
+        if (x > m1->groups.size()){
+          break;
+        }
         else if (y > m2->groups.size()){
           x++;
           y=0;
@@ -226,6 +228,7 @@ void Database::BuildMemberGraph() {
 
 double Database::BestGroupsToJoin(Member *root) {
   // Fill in your code here
+  return 0;
 }
 
 }

@@ -30,7 +30,7 @@ class MemberConnection {
 
 class Member {
   // Add extra private fields and private methods if necessary.
-  Member* DLS(Member *m, uint64_t dst_member_id,int depth){
+  /*Member* DLS(Member *m, uint64_t dst_member_id,int depth){
    if (depth==0 && m->member_id == dst_member_id){
     return m;
    }
@@ -43,7 +43,7 @@ class Member {
     }
    }
    return NULL;
-  }
+  }*/
 
  public:
   uint64_t member_id;
