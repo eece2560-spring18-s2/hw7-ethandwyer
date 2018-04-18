@@ -7,3 +7,4 @@ big O notation O(G*K^2).
 
 The run time of breadth first search is O(|V| + |E|) and the run time of Iterative deepening depth first search is O(b^d) 
 where b is the branching factor and d is the depth of the shallowest solution.  
+Breadth first search has a memory complexity of O(b^(d+1)) which is worse than the memory complexity of O(b*d) which is not exponential.  
