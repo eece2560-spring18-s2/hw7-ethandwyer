@@ -30,20 +30,23 @@ class MemberConnection {
 
 class Member {
   // Add extra private fields and private methods if necessary.
-  /*Member* DLS(Member *m, uint64_t dst_member_id,int depth){
-   if (depth==0 && m->member_id == dst_member_id){
-    return m;
-   }
-   if (depth > 0){
-    for (auto *it = m->connecting_members->begin(); it != m->connecting_members->end(); it++){
-     Member *found = DLS(it->dst, dst_member_id, depth-1);
-     if (found != NULL){
-      return found;
-     }
+  Member* DLS(Member *dst, uint64_t dst_member_id, double key){
+   Member *found;
+   if (dst->member_id == dst_member_id){
+    return dst;
+  }
+  
+  if (key > 0){
+    for (auto it = dst->connecting_members.begin(); it != dst->connecting_members.end(); it++){
+      it->second.dst->parent = dst;
+      found = DLS(it->second.dst, dst_member_id, key-1);
+      if (found != NULL){
+        return found;
+      }
     }
-   }
-   return NULL;
-  }*/
+  }
+  return NULL;
+}
 
  public:
   uint64_t member_id;
