@@ -196,10 +196,67 @@ void Database::LoadData(const std::string &data_folder_path,
 
 void Database::BuildMemberGraph() {
   // Fill in your code here
+  for (Group *group : groups){
+    unsigned int group_size;
+    group_size = group->members.size();
+    for (unsigned int i=0; i<group_size; i++){
+      for (unsigned int j = 0; j<group_size; j++){
+        if (j!=i){
+          MemberConnection conn;
+          conn.group = group;
+          conn.dst = group->members[i];
+          group->members[i]->connecting_members[group->members[j]->member_id] = conn;
+        }
+      }
+    }
+  }
 }
 
 double Database::BestGroupsToJoin(Member *root) {
   // Fill in your code here
+  /*
+  MST-Prim(g, w, r){
+    for each u in G.V{
+      u.key = inf
+      u.p = NULL
+    }
+    r.key = 0
+    Q = G.V
+    while Q is not empty{
+      u = Extract-Min(Q)
+      for each v in G.adj[u]{
+        if v is in Q && w(u,v) < v.key{
+          v.p = u
+          v.key = w(u,v)
+        }
+      }
+    }
+  }
+  
+  Designate root
+  Add root to priority queue
+  while (there are still nodes to be added to closed list){
+    remove node from PQ designate it as curr node
+    if (curr node is not in closed list){
+      if (the node is not the first node removed from PQ){
+        add the minimal edge connecting it with closed node to the MST
+      }
+      Add curr node to closed list
+      for (each succesor of curr node){
+        if (successor is not already in closed list OR successor 
+        is now connected to closed node by lesser weight){
+          add successor to PQ of open nodes
+        }
+      }
+    }
+  }
+  */
+  /*
+  std::priority_queue<double, Member *> PQ;
+  root->color = COLOR_GRAY;
+  for (auto it = v->connecting_members.begin(); it != v->connecting_members.end(); it++ ){
+    PQ.push
+  }*/
+  return 0;
 }
-
 }
